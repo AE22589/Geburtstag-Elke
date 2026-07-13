@@ -1,66 +1,125 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Happy Birthday ❤️</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
+
+<div id="background"></div>
+
+<div id="stars"></div>
 
 <div id="countdownPage">
 
-    <h1>🎂 Happy Birthday</h1>
+    <div class="card">
 
-    <p class="subtitle">
-        Noch bis zu deiner Überraschung...
-    </p>
+        <h1>🎂 Happy Birthday</h1>
 
-    <div id="countdown">
+        <p class="subtitle">
 
-        <div class="box">
-            <span id="days">0</span>
-            <small>Tage</small>
+            Noch bis zu deiner Überraschung...
+
+        </p>
+
+        <div id="countdown">
+
+            <div class="box">
+                <span id="days">0</span>
+                <small>Tage</small>
+            </div>
+
+            <div class="box">
+                <span id="hours">0</span>
+                <small>Std</small>
+            </div>
+
+            <div class="box">
+                <span id="minutes">0</span>
+                <small>Min</small>
+            </div>
+
+            <div class="box">
+                <span id="seconds">0</span>
+                <small>Sek</small>
+            </div>
+
         </div>
 
-        <div class="box">
-            <span id="hours">0</span>
-            <small>Std</small>
-        </div>
+        <p class="hint">
 
-        <div class="box">
-            <span id="minutes">0</span>
-            <small>Min</small>
-        </div>
+            ✨ Ein kleines Abenteuer wartet auf dich...
 
-        <div class="box">
-            <span id="seconds">0</span>
-            <small>Sek</small>
-        </div>
+        </p>
 
     </div>
 
 </div>
-
 
 <div id="giftPage">
 
-    <div class="chest">
+    <div class="card">
 
-        📦
+        <div id="chest">
+
+            📦
+
+        </div>
+
+        <h2>Alles Gute zum Geburtstag!</h2>
+
+        <p>
+
+            Deine Überraschung wartet auf dich.
+
+        </p>
+
+        <button id="openGift">
+
+            Schatztruhe öffnen
+
+        </button>
 
     </div>
 
-    <h2>Alles Gute zum Geburtstag!</h2>
-
-    <p>Klicke auf die Schatztruhe.</p>
-
 </div>
 
+<div id="adminModal">
+
+    <div class="adminCard">
+
+        <h3>🔒 Adminbereich</h3>
+
+        <input
+            id="adminCode"
+            type="password"
+            placeholder="Code eingeben">
+
+        <button id="adminButton">
+
+            Öffnen
+
+        </button>
+
+    </div>
+
+</div>
 
 <script src="script.js"></script>
 
 </body>
+
 </html>

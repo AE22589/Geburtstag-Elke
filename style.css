@@ -1,28 +1,98 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
 body{
 
-    margin:0;
-    font-family:Arial, Helvetica, sans-serif;
-
-    background:linear-gradient(#08203e,#1d4e89);
-
-    color:white;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    height:100vh;
+    width:100%;
+    height:100%;
 
     overflow:hidden;
 
+    font-family:'Poppins',sans-serif;
+
+    color:white;
+
 }
+
+body{
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    position:relative;
+
+    background:#081b35;
+
+}
+
+/* -------------------------- */
+/* Hintergrund */
+/* -------------------------- */
+
+#background{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+        radial-gradient(circle at top,#284f8b 0%,#0f2446 40%,#061222 100%);
+
+    z-index:-3;
+
+}
+
+/* -------------------------- */
+/* Sterne */
+/* -------------------------- */
+
+#stars{
+
+    position:fixed;
+    inset:0;
+    z-index:-2;
+
+    background-image:
+    radial-gradient(white 1px, transparent 1px);
+
+    background-size:45px 45px;
+
+    opacity:.35;
+
+    animation:starsMove 60s linear infinite;
+
+}
+
+@keyframes starsMove{
+
+    from{
+        transform:translateY(0px);
+    }
+
+    to{
+
+        transform:translateY(-45px);
+
+    }
+
+}
+
+/* -------------------------- */
+/* Seiten */
+/* -------------------------- */
 
 #countdownPage,
 #giftPage{
 
-    text-align:center;
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
 }
 
@@ -32,31 +102,80 @@ body{
 
 }
 
-.subtitle{
+/* -------------------------- */
+/* Karte */
+/* -------------------------- */
 
-    margin-bottom:40px;
+.card{
+
+    width:min(900px,90%);
+
+    background:rgba(255,255,255,.12);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    border-radius:30px;
+
+    padding:60px;
+
+    text-align:center;
+
+    box-shadow:
+    0 20px 60px rgba(0,0,0,.35);
 
 }
+
+/* -------------------------- */
+
+h1{
+
+    font-family:"Playfair Display",serif;
+
+    font-size:56px;
+
+    margin-bottom:15px;
+
+}
+
+.subtitle{
+
+    opacity:.9;
+
+    margin-bottom:45px;
+
+    font-size:20px;
+
+}
+
+/* -------------------------- */
+/* Countdown */
+/* -------------------------- */
 
 #countdown{
 
     display:flex;
 
-    gap:20px;
+    justify-content:center;
+
+    gap:22px;
+
+    flex-wrap:wrap;
 
 }
 
 .box{
 
-    width:110px;
+    width:135px;
 
-    height:110px;
+    height:135px;
 
-    background:rgba(255,255,255,.15);
+    border-radius:25px;
 
-    backdrop-filter:blur(12px);
+    background:rgba(255,255,255,.10);
 
-    border-radius:20px;
+    border:1px solid rgba(255,255,255,.18);
 
     display:flex;
 
@@ -64,36 +183,239 @@ body{
 
     justify-content:center;
 
+    align-items:center;
+
+    transition:.35s;
+
+}
+
+.box:hover{
+
+    transform:translateY(-8px);
+
 }
 
 .box span{
 
-    font-size:42px;
+    font-size:52px;
 
-    font-weight:bold;
+    font-weight:700;
 
 }
 
 .box small{
 
-    margin-top:8px;
+    margin-top:10px;
+
+    opacity:.8;
 
 }
 
-.chest{
+/* -------------------------- */
 
-    font-size:90px;
+.hint{
+
+    margin-top:45px;
+
+    font-size:18px;
+
+    opacity:.85;
+
+}
+
+/* -------------------------- */
+/* Schatztruhe */
+/* -------------------------- */
+
+#chest{
+
+    font-size:110px;
 
     cursor:pointer;
 
-    animation:wobble 1.6s infinite;
+    user-select:none;
+
+    animation:wobble 2s ease-in-out infinite;
 
 }
 
 @keyframes wobble{
 
-0%{transform:rotate(-3deg);}
-50%{transform:rotate(3deg);}
-100%{transform:rotate(-3deg);}
+0%{
+
+transform:rotate(-2deg);
+
+}
+
+25%{
+
+transform:rotate(2deg);
+
+}
+
+50%{
+
+transform:rotate(-2deg);
+
+}
+
+75%{
+
+transform:rotate(2deg);
+
+}
+
+100%{
+
+transform:rotate(-2deg);
+
+}
+
+}
+
+h2{
+
+    margin-top:20px;
+
+    margin-bottom:20px;
+
+    font-size:42px;
+
+}
+
+/* -------------------------- */
+/* Button */
+/* -------------------------- */
+
+button{
+
+    margin-top:30px;
+
+    padding:16px 38px;
+
+    border:none;
+
+    border-radius:40px;
+
+    background:#FFD166;
+
+    color:#08203e;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+button:hover{
+
+    transform:scale(1.05);
+
+}
+
+/* -------------------------- */
+/* Admin Fenster */
+/* -------------------------- */
+
+#adminModal{
+
+    position:fixed;
+
+    inset:0;
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:rgba(0,0,0,.65);
+
+}
+
+.adminCard{
+
+    width:360px;
+
+    padding:35px;
+
+    border-radius:25px;
+
+    background:white;
+
+    color:#222;
+
+    text-align:center;
+
+}
+
+.adminCard h3{
+
+    margin-bottom:25px;
+
+}
+
+.adminCard input{
+
+    width:100%;
+
+    padding:14px;
+
+    border-radius:10px;
+
+    border:1px solid #ccc;
+
+    font-size:17px;
+
+}
+
+.adminCard button{
+
+    margin-top:20px;
+
+    width:100%;
+
+}
+
+/* -------------------------- */
+/* Handy */
+/* -------------------------- */
+
+@media(max-width:700px){
+
+.card{
+
+padding:30px 20px;
+
+}
+
+h1{
+
+font-size:38px;
+
+}
+
+.box{
+
+width:90px;
+height:90px;
+
+}
+
+.box span{
+
+font-size:34px;
+
+}
+
+.subtitle{
+
+font-size:18px;
+
+}
 
 }
