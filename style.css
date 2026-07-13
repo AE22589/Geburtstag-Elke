@@ -1,0 +1,99 @@
+body{
+
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+
+    background:linear-gradient(#08203e,#1d4e89);
+
+    color:white;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    height:100vh;
+
+    overflow:hidden;
+
+}
+
+#countdownPage,
+#giftPage{
+
+    text-align:center;
+
+}
+
+#giftPage{
+
+    display:none;
+
+}
+
+.subtitle{
+
+    margin-bottom:40px;
+
+}
+
+#countdown{
+
+    display:flex;
+
+    gap:20px;
+
+}
+
+.box{
+
+    width:110px;
+
+    height:110px;
+
+    background:rgba(255,255,255,.15);
+
+    backdrop-filter:blur(12px);
+
+    border-radius:20px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+}
+
+.box span{
+
+    font-size:42px;
+
+    font-weight:bold;
+
+}
+
+.box small{
+
+    margin-top:8px;
+
+}
+
+.chest{
+
+    font-size:90px;
+
+    cursor:pointer;
+
+    animation:wobble 1.6s infinite;
+
+}
+
+@keyframes wobble{
+
+0%{transform:rotate(-3deg);}
+50%{transform:rotate(3deg);}
+100%{transform:rotate(-3deg);}
+
+}
