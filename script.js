@@ -60,16 +60,33 @@ if (bgVideo) {
 // ===============================
 // Countdown
 // ===============================
+// Zum Testen ohne Warten auf den echten Geburtstag:
+// index.html?test=memory   -> zeigt sofort das Memory-Spiel
+// index.html?test=voucher  -> zeigt sofort die Gutscheinseite
+// Der Parameter hat keinerlei Auswirkung, wenn er nicht in der
+// URL steht - für Besucher ändert sich also nichts.
+
+const testMode = new URLSearchParams(window.location.search).get("test");
 
 function updateCountdown() {
 
     const now = new Date();
     const diff = birthday - now;
 
-    if (diff <= 0) {
+    if (diff <= 0 || testMode === "memory" || testMode === "voucher") {
 
         countdownPage.classList.add("hidden");
-        memoryPage.classList.remove("hidden");
+
+        if (testMode === "voucher") {
+
+            voucherPage.classList.remove("hidden");
+            launchConfetti();
+
+        } else {
+
+            memoryPage.classList.remove("hidden");
+
+        }
 
         clearInterval(timer);
 
