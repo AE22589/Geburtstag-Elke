@@ -141,8 +141,111 @@ adminModal.addEventListener("click", function (event) {
 // Platzhalter für später
 // ===============================
 
-document.getElementById("openGift").addEventListener("click", function () {
 
-    alert("Hier beginnt bald das Geburtstagsabenteuer 🦀");
 
-});
+// ===============================
+// Memory
+// ===============================
+
+const memoryBoard = document.getElementById("memoryBoard");
+
+const cards = [
+    "🎂","🎂",
+    "🎁","🎁",
+    "❤️","❤️",
+    "🌸","🌸",
+    "🥂","🥂",
+    "🎈","🎈"
+];
+
+cards.sort(() => Math.random() - 0.5);
+
+let firstCard = null;
+let secondCard = null;
+let lock = false;
+let pairs = 0;
+
+function createBoard(){
+
+    memoryBoard.innerHTML = "";
+
+    cards.forEach(emoji => {
+
+        const card = document.createElement("div");
+
+        card.className = "memoryCard";
+        card.dataset.emoji = emoji;
+        card.dataset.open = "false";
+
+        card.textContent = "❓";
+
+        card.onclick = flipCard;
+
+        memoryBoard.appendChild(card);
+
+    });
+
+}
+
+function flipCard(){
+
+    if(lock) return;
+
+    if(this.dataset.open === "true") return;
+
+    this.dataset.open = "true";
+    this.textContent = this.dataset.emoji;
+
+    if(firstCard === null){
+
+        firstCard = this;
+        return;
+
+    }
+
+    secondCard = this;
+
+    lock = true;
+
+    if(firstCard.dataset.emoji === secondCard.dataset.emoji){
+
+        firstCard.style.background = "#67d98a";
+        secondCard.style.background = "#67d98a";
+
+        pairs++;
+
+        reset();
+
+        if(pairs === 6){
+
+            document.getElementById("memoryWon").style.display = "block";
+
+        }
+
+    }else{
+
+        setTimeout(() => {
+
+            firstCard.dataset.open = "false";
+            secondCard.dataset.open = "false";
+
+            firstCard.textContent = "❓";
+            secondCard.textContent = "❓";
+
+            reset();
+
+        }, 900);
+
+    }
+
+}
+
+function reset(){
+
+    firstCard = null;
+    secondCard = null;
+    lock = false;
+
+}
+
+createBoard();
