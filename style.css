@@ -1,3 +1,7 @@
+/* ==========================================================
+   Reset
+========================================================== */
+
 *{
     margin:0;
     padding:0;
@@ -6,13 +10,17 @@
 
 :root{
 
-    --glass:rgba(255,255,255,.12);
-    --border:rgba(255,255,255,.18);
-    --text:#ffffff;
-    --gold:#ffd166;
-    --green:#2e7d32;
-    --red:#c62828;
-    --shadow:0 25px 60px rgba(0,0,0,.35);
+    --glass:rgba(255,255,255,.10);
+    --glass-strong:rgba(255,255,255,.16);
+    --border:rgba(255,255,255,.22);
+    --text:#f5f6f8;
+    --text-dim:rgba(245,246,248,.72);
+    --gold:#e8c27a;
+    --green:#2f7d5b;
+    --red:#b3392f;
+    --shadow:0 30px 70px rgba(0,0,0,.45);
+    --radius-lg:28px;
+    --radius-md:20px;
 
 }
 
@@ -20,11 +28,15 @@ html{
 
     height:100%;
 
+    overflow-x:hidden;
+
 }
 
 body{
 
-    min-height:100vh;
+    position:relative;
+
+    min-height:100dvh;
 
     overflow-x:hidden;
 
@@ -32,18 +44,64 @@ body{
 
     color:var(--text);
 
-    background:
-    radial-gradient(circle at top,#203f75 0%,#0b1d3d 45%,#040c18 100%);
+    /* Fallback color in case the video never loads at all */
+    background:radial-gradient(circle at top,#203f75 0%,#0b1d3d 45%,#040c18 100%);
+
+    -webkit-font-smoothing:antialiased;
 
 }
 
-/* -------------------------------- */
-/* Seiten */
-/* -------------------------------- */
+/* ==========================================================
+   Hintergrundvideo
+========================================================== */
+
+.bg-video{
+
+    position:fixed;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    z-index:-3;
+
+    background:#040c18;
+
+}
+
+.bg-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:-2;
+
+    pointer-events:none;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(4,10,20,.55) 0%,
+            rgba(4,10,20,.45) 45%,
+            rgba(4,10,20,.7) 100%
+        );
+
+}
+
+/* ==========================================================
+   Seiten
+========================================================== */
 
 .page{
 
-    min-height:100vh;
+    position:relative;
+
+    min-height:100dvh;
 
     width:100%;
 
@@ -53,7 +111,7 @@ body{
 
     align-items:center;
 
-    padding:25px;
+    padding:max(25px,env(safe-area-inset-top)) max(25px,env(safe-area-inset-right)) max(25px,env(safe-area-inset-bottom)) max(25px,env(safe-area-inset-left));
 
 }
 
@@ -63,192 +121,55 @@ body{
 
 }
 
-/* -------------------------------- */
-/* Sternenhimmel */
-/* -------------------------------- */
-
-#sky{
-
-    position:fixed;
-
-    inset:0;
-
-    overflow:hidden;
-
-    z-index:-20;
-
-}
-
-#stars1,
-#stars2,
-#stars3{
-
-    position:absolute;
-
-    inset:-50%;
-
-    background-repeat:repeat;
-
-    opacity:.55;
-
-}
-
-#stars1{
-
-    background-image:
-    radial-gradient(circle,#fff 1px,transparent 1px);
-
-    background-size:42px 42px;
-
-    animation:stars1 120s linear infinite;
-
-}
-
-#stars2{
-
-    background-image:
-    radial-gradient(circle,#fff 1.5px,transparent 1.5px);
-
-    background-size:90px 90px;
-
-    opacity:.35;
-
-    animation:stars2 180s linear infinite;
-
-}
-
-#stars3{
-
-    background-image:
-    radial-gradient(circle,#fff 2px,transparent 2px);
-
-    background-size:170px 170px;
-
-    opacity:.2;
-
-    animation:stars3 260s linear infinite;
-
-}
-
-@keyframes stars1{
-
-    from{
-
-        transform:translateY(0);
-
-    }
-
-    to{
-
-        transform:translateY(-500px);
-
-    }
-
-}
-
-@keyframes stars2{
-
-    from{
-
-        transform:translateX(0);
-
-    }
-
-    to{
-
-        transform:translateX(-400px);
-
-    }
-
-}
-
-@keyframes stars3{
-
-    from{
-
-        transform:translate(0,0);
-
-    }
-
-    to{
-
-        transform:translate(-300px,-300px);
-
-    }
-
-}
-
-/* Sternschnuppe */
-
-#shootingStar{
-
-    position:absolute;
-
-    top:-120px;
-
-    left:-250px;
-
-    width:220px;
-
-    height:2px;
-
-    background:linear-gradient(to right,#fff,transparent);
-
-    transform:rotate(25deg);
-
-    animation:shoot 9s linear infinite;
-
-}
-
-@keyframes shoot{
-
-    0%,85%{
-
-        opacity:0;
-
-        transform:translate(-300px,-200px) rotate(25deg);
-
-    }
-
-    90%{
-
-        opacity:1;
-
-    }
-
-    100%{
-
-        opacity:0;
-
-        transform:translate(1800px,900px) rotate(25deg);
-
-    }
-
-}
-
-/* -------------------------------- */
-/* Glas-Karte */
-/* -------------------------------- */
+/* ==========================================================
+   Glas-Karte
+========================================================== */
 
 .glass{
 
-    width:min(900px,100%);
+    width:min(560px,100%);
 
     background:var(--glass);
 
-    backdrop-filter:blur(18px);
+    backdrop-filter:blur(22px) saturate(140%);
 
-    -webkit-backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(22px) saturate(140%);
 
     border:1px solid var(--border);
 
-    border-radius:30px;
+    border-radius:var(--radius-lg);
 
-    padding:45px;
+    padding:48px 40px;
 
     text-align:center;
 
     box-shadow:var(--shadow);
+
+    animation:fadeIn .7s cubic-bezier(.22,.61,.36,1);
+
+}
+
+.eyebrow{
+
+    display:inline-block;
+
+    font-size:13px;
+
+    letter-spacing:.14em;
+
+    text-transform:uppercase;
+
+    color:var(--text-dim);
+
+    margin-bottom:14px;
+
+    font-weight:500;
+
+}
+
+.eyebrow-dark{
+
+    color:var(--red);
 
 }
 
@@ -256,9 +177,13 @@ h1{
 
     font-family:'Playfair Display',serif;
 
-    font-size:56px;
+    font-weight:700;
 
-    margin-bottom:20px;
+    font-size:clamp(38px,7vw,54px);
+
+    line-height:1.1;
+
+    margin-bottom:16px;
 
 }
 
@@ -266,25 +191,29 @@ h2{
 
     font-family:'Playfair Display',serif;
 
-    font-size:44px;
+    font-weight:700;
 
-    margin-bottom:15px;
+    font-size:clamp(30px,6vw,42px);
+
+    line-height:1.15;
+
+    margin-bottom:14px;
 
 }
 
 .subtitle{
 
-    font-size:20px;
+    font-size:16px;
 
-    opacity:.9;
+    color:var(--text-dim);
 
-    margin-bottom:35px;
+    margin-bottom:34px;
 
 }
 
-/* -------------------------------- */
-/* Countdown */
-/* -------------------------------- */
+/* ==========================================================
+   Countdown
+========================================================== */
 
 #countdown{
 
@@ -292,19 +221,19 @@ h2{
 
     grid-template-columns:repeat(4,1fr);
 
-    gap:18px;
+    gap:14px;
 
 }
 
 .timeBox{
 
-    background:rgba(255,255,255,.08);
+    background:var(--glass-strong);
 
-    border:1px solid rgba(255,255,255,.18);
+    border:1px solid var(--border);
 
-    border-radius:22px;
+    border-radius:var(--radius-md);
 
-    padding:28px 10px;
+    padding:22px 6px;
 
 }
 
@@ -312,51 +241,80 @@ h2{
 
     display:block;
 
-    font-size:54px;
+    font-family:'Playfair Display',serif;
+
+    font-size:clamp(28px,7vw,44px);
 
     font-weight:700;
+
+    font-variant-numeric:tabular-nums;
+
+    line-height:1.1;
 
 }
 
 .timeBox small{
 
-    opacity:.8;
+    display:block;
+
+    margin-top:4px;
+
+    font-size:12px;
+
+    letter-spacing:.08em;
+
+    text-transform:uppercase;
+
+    color:var(--text-dim);
 
 }
 
 .hint{
 
-    margin-top:35px;
+    margin-top:32px;
 
-    opacity:.85;
+    font-size:14px;
+
+    color:var(--text-dim);
 
 }
 
-/* -------------------------------- */
-/* Memory */
-/* -------------------------------- */
+/* ==========================================================
+   Memory
+========================================================== */
 
 #memoryBoard{
 
     display:grid;
 
-    grid-template-columns:repeat(4,1fr);
+    grid-template-columns:repeat(3,1fr);
 
-    gap:16px;
+    gap:14px;
 
-    margin-top:25px;
+    margin-top:8px;
 
 }
 
 .memoryCard{
 
+    position:relative;
+
     aspect-ratio:1;
 
-    border-radius:20px;
+    cursor:pointer;
 
-    background:rgba(255,255,255,.12);
+    perspective:800px;
 
-    border:1px solid rgba(255,255,255,.18);
+}
+
+.memoryCard .front,
+.memoryCard .back{
+
+    position:absolute;
+
+    inset:0;
+
+    border-radius:16px;
 
     display:flex;
 
@@ -364,83 +322,111 @@ h2{
 
     align-items:center;
 
-    font-size:48px;
-
-    cursor:pointer;
+    font-size:clamp(1.6rem,6vw,2.1rem);
 
     user-select:none;
 
-    transition:.25s;
+    backface-visibility:hidden;
+
+    transition:transform .5s cubic-bezier(.22,.61,.36,1),background .3s ease,border-color .3s ease;
+
+    transform:rotateY(0deg);
 
 }
 
-.memoryCard:hover{
+.memoryCard .front{
 
-    transform:scale(1.04);
+    background:var(--glass-strong);
+
+    border:1px solid var(--border);
+
+    color:var(--text);
 
 }
 
-.memoryCard.open{
+.memoryCard .back{
 
-    background:white;
+    background:#fbf7ef;
 
     color:#222;
 
-}
-
-.memoryCard.found{
-
-    background:#7ddc8d;
-
-    color:#222;
+    transform:rotateY(180deg);
 
 }
 
-/* -------------------------------- */
-/* Gutschein */
-/* -------------------------------- */
+.memoryCard.open .front{
+
+    transform:rotateY(-180deg);
+
+}
+
+.memoryCard.open .back{
+
+    transform:rotateY(0deg);
+
+}
+
+.memoryCard.found .back{
+
+    background:#dff2e6;
+
+    box-shadow:0 0 0 2px rgba(47,125,91,.55) inset;
+
+}
+
+/* ==========================================================
+   Gutschein
+========================================================== */
 
 .voucher{
 
-    width:min(700px,100%);
+    width:min(480px,100%);
 
-    background:#fffaf2;
+    background:#fbf7ef;
 
     color:#222;
 
-    border-radius:30px;
+    border-radius:var(--radius-lg);
 
-    padding:45px;
+    padding:48px 40px;
 
     text-align:center;
 
-    box-shadow:0 25px 60px rgba(0,0,0,.35);
+    box-shadow:var(--shadow);
 
-    animation:fadeIn .8s ease;
+    animation:fadeIn .8s cubic-bezier(.22,.61,.36,1);
 
 }
 
 .pizza{
 
-    font-size:70px;
+    font-size:56px;
 
-    margin-bottom:15px;
+    margin-bottom:14px;
 
 }
 
 .voucher h2{
 
-    color:var(--red);
-
-    margin-bottom:20px;
+    color:#2a2a2a;
 
 }
 
 .voucher h3{
 
+    font-family:'Poppins',sans-serif;
+
+    font-weight:600;
+
+    font-size:14px;
+
+    letter-spacing:.1em;
+
+    text-transform:uppercase;
+
     color:var(--green);
 
-    margin:25px 0 20px;
+    margin:26px 0 16px;
 
 }
 
@@ -448,7 +434,9 @@ h2{
 
     line-height:1.7;
 
-    margin:16px 0;
+    margin:14px 0;
+
+    color:#3d3d3d;
 
 }
 
@@ -456,39 +444,39 @@ h2{
 
     display:inline-block;
 
-    margin:30px auto;
+    margin:26px auto;
 
-    padding:16px 40px;
+    padding:16px 44px;
 
-    background:var(--red);
+    background:#1a1a1a;
 
-    color:white;
+    color:#fff;
 
     border-radius:60px;
 
-    font-size:34px;
+    font-size:30px;
 
     font-weight:700;
 
-    letter-spacing:5px;
+    letter-spacing:.18em;
 
 }
 
 .footer{
 
-    margin-top:30px;
+    margin-top:26px;
 
     color:var(--green);
 
-    font-size:22px;
+    font-size:18px;
 
     font-weight:600;
 
 }
 
-/* -------------------------------- */
-/* Admin */
-/* -------------------------------- */
+/* ==========================================================
+   Admin
+========================================================== */
 
 #adminModal{
 
@@ -502,31 +490,39 @@ h2{
 
     align-items:center;
 
-    background:rgba(0,0,0,.7);
+    background:rgba(0,0,0,.6);
+
+    backdrop-filter:blur(4px);
 
     z-index:1000;
+
+    padding:20px;
 
 }
 
 .adminCard{
 
-    width:min(360px,90%);
+    width:min(340px,100%);
 
-    background:white;
+    background:#fbf7ef;
 
     color:#222;
 
-    border-radius:24px;
+    border-radius:22px;
 
     padding:30px;
 
     text-align:center;
 
+    box-shadow:var(--shadow);
+
 }
 
 .adminCard h3{
 
-    margin-bottom:20px;
+    margin-bottom:18px;
+
+    font-size:18px;
 
 }
 
@@ -534,13 +530,25 @@ h2{
 
     width:100%;
 
-    padding:14px;
+    padding:14px 16px;
 
     border-radius:12px;
 
-    border:1px solid #ccc;
+    border:1px solid #d8d3c9;
 
-    font-size:17px;
+    font-size:16px;
+
+    font-family:inherit;
+
+    background:#fff;
+
+}
+
+.adminCard input:focus{
+
+    outline:2px solid var(--gold);
+
+    outline-offset:1px;
 
 }
 
@@ -548,242 +556,48 @@ h2{
 
     width:100%;
 
-    margin-top:20px;
+    margin-top:16px;
 
-    padding:15px;
+    padding:14px;
 
     border:none;
 
     border-radius:50px;
 
-    background:var(--gold);
+    background:#1a1a1a;
 
-    font-size:18px;
+    color:#fff;
+
+    font-size:15px;
 
     font-weight:600;
 
+    font-family:inherit;
+
     cursor:pointer;
 
-}
-
-/* -------------------------------- */
-/* Konfetti */
-/* -------------------------------- */
-
-#confetti{
-
-    position:fixed;
-
-    inset:0;
-
-    pointer-events:none;
-
-    z-index:999;
+    transition:opacity .2s ease;
 
 }
 
-/* -------------------------------- */
-/* Animation */
-/* -------------------------------- */
+.adminCard button:hover{
 
-@keyframes fadeIn{
-
-    from{
-
-        opacity:0;
-
-        transform:translateY(30px);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:translateY(0);
-
-    }
+    opacity:.85;
 
 }
 
-/* -------------------------------- */
-/* Mobile */
-/* -------------------------------- */
-
-@media (max-width:768px){
-
-    .page{
-
-        padding:18px;
-
-    }
-
-    .glass,
-    .voucher{
-
-        padding:26px 20px;
-
-        border-radius:24px;
-
-    }
-
-    h1{
-
-        font-size:38px;
-
-        line-height:1.15;
-
-    }
-
-    h2{
-
-        font-size:32px;
-
-        line-height:1.2;
-
-    }
-
-    .subtitle{
-
-        font-size:17px;
-
-        margin-bottom:25px;
-
-    }
-
-    #countdown{
-
-        grid-template-columns:repeat(2,1fr);
-
-    }
-
-    .timeBox{
-
-        padding:20px 8px;
-
-    }
-
-    .timeBox span{
-
-        font-size:38px;
-
-    }
-
-    #memoryBoard{
-
-        gap:10px;
-
-    }
-
-    .memoryCard{
-
-        font-size:36px;
-
-    }
-
-    .pizza{
-
-        font-size:56px;
-
-    }
-
-    .codeWord{
-
-        width:100%;
-
-        font-size:24px;
-
-        letter-spacing:3px;
-
-        padding:15px;
-
-    }
-
-    .voucher p{
-
-        font-size:16px;
-
-    }
-
-    .footer{
-
-        font-size:18px;
-
-    }
-
-}
-
-/* ===========================
-   Memory Karten
-=========================== */
-
-#memoryBoard{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:16px;
-    margin-top:30px;
-}
-
-.memoryCard{
-    position:relative;
-    aspect-ratio:1;
-    cursor:pointer;
-    transform-style:preserve-3d;
-    transition:transform .45s;
-}
-
-.memoryCard.open{
-    transform:rotateY(180deg);
-}
-
-.memoryCard .front,
-.memoryCard .back{
-    position:absolute;
-    inset:0;
-    border-radius:18px;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    backface-visibility:hidden;
-
-    font-size:2.3rem;
-
-    user-select:none;
-}
-
-.memoryCard .front{
-
-    background:rgba(255,255,255,.12);
-    border:2px solid rgba(255,255,255,.25);
-    color:white;
-
-    backdrop-filter:blur(10px);
-
-}
-
-.memoryCard .back{
-
-    transform:rotateY(180deg);
-
-    background:white;
-
-    color:#222;
-
-}
-
-
-/* ===========================
+/* ==========================================================
    Konfetti
-=========================== */
+========================================================== */
 
 #confetti{
 
     position:fixed;
+
     inset:0;
 
     pointer-events:none;
+
     overflow:hidden;
 
     z-index:999;
@@ -794,8 +608,9 @@ h2{
 
     position:absolute;
 
-    width:10px;
-    height:16px;
+    width:9px;
+
+    height:14px;
 
     top:-30px;
 
@@ -805,12 +620,12 @@ h2{
 
 }
 
-.confettiPiece:nth-child(6n+1){background:#ff4d6d;}
-.confettiPiece:nth-child(6n+2){background:#ffd166;}
-.confettiPiece:nth-child(6n+3){background:#06d6a0;}
-.confettiPiece:nth-child(6n+4){background:#4cc9f0;}
-.confettiPiece:nth-child(6n+5){background:#f72585;}
-.confettiPiece:nth-child(6n){background:#ffffff;}
+.confettiPiece:nth-child(6n+1){background:#e4572e;}
+.confettiPiece:nth-child(6n+2){background:#e8c27a;}
+.confettiPiece:nth-child(6n+3){background:#4fa585;}
+.confettiPiece:nth-child(6n+4){background:#5b9bd5;}
+.confettiPiece:nth-child(6n+5){background:#c46a8f;}
+.confettiPiece:nth-child(6n){background:#f5f6f8;}
 
 @keyframes confettiFall{
 
@@ -823,42 +638,89 @@ h2{
 
     100%{
 
-        transform:translateY(110vh) rotate(720deg);
+        transform:translateY(110vh) rotate(600deg);
         opacity:0;
 
     }
 
 }
 
+/* ==========================================================
+   Allgemeine Animationen
+========================================================== */
 
-/* ===========================
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+        transform:translateY(18px);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateY(0);
+
+    }
+
+}
+
+@media (prefers-reduced-motion:reduce){
+
+    *{
+
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        transition-duration:.01ms !important;
+
+    }
+
+}
+
+/* ==========================================================
    Mobile
-=========================== */
+========================================================== */
 
-@media (max-width:600px){
+@media (max-width:480px){
+
+    .glass,
+    .voucher{
+
+        padding:34px 24px;
+
+        border-radius:22px;
+
+    }
+
+    #countdown{
+
+        gap:10px;
+
+    }
+
+    .timeBox{
+
+        padding:16px 4px;
+
+    }
 
     #memoryBoard{
 
-        gap:12px;
-
-    }
-
-    .memoryCard .front,
-    .memoryCard .back{
-
-        font-size:1.9rem;
-
-    }
-
-    .voucher{
-
-        padding:28px 20px;
+        gap:10px;
 
     }
 
     .codeWord{
 
-        font-size:2rem;
+        width:100%;
+
+        font-size:24px;
+
+        letter-spacing:.12em;
+
+        padding:14px;
 
     }
 

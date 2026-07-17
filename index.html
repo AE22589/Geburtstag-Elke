@@ -1,159 +1,132 @@
 <!DOCTYPE html>
 <html lang="de">
-
 <head>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0b1220">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <title>Happy Birthday Elke ❤️</title>
+<title>Happy Birthday Elke ❤️</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css">
 
 </head>
-
 <body>
 
-<div id="sky">
-    <div id="stars1"></div>
-    <div id="stars2"></div>
-    <div id="stars3"></div>
-    <div id="shootingStar"></div>
-</div>
+<!--
+  Hintergrundvideo
+  ------------------------------------------------------------
+  Lege im selben Ordner wie index.html folgende zwei Dateien ab:
+    - background.mp4   (dein Video)
+    - poster.jpg        (ein Standbild / erstes Frame des Videos)
+  Das Posterbild wird automatisch angezeigt, solange das Video
+  lädt oder falls Autoplay vom Browser verhindert wird (z. B.
+  manchmal im Energiesparmodus auf dem iPhone).
+-->
+<video
+    id="bgVideo"
+    class="bg-video"
+    autoplay
+    muted
+    loop
+    playsinline
+    webkit-playsinline="true"
+    poster="poster.jpg"
+    preload="auto">
+    <source src="background.mp4" type="video/mp4">
+</video>
+
+<div class="bg-overlay"></div>
 
 <!-- Countdown -->
-
 <section id="countdownPage" class="page">
-
     <div class="glass">
 
-        <h1>🎂 Happy Birthday</h1>
-
-        <p class="subtitle">
-            Noch ein kleines bisschen Geduld...
-        </p>
+        <p class="eyebrow">Für dich, Elke</p>
+        <h1>Happy Birthday</h1>
+        <p class="subtitle">Noch ein kleines bisschen Geduld …</p>
 
         <div id="countdown">
-
             <div class="timeBox">
                 <span id="days">0</span>
                 <small>Tage</small>
             </div>
-
             <div class="timeBox">
                 <span id="hours">0</span>
                 <small>Std</small>
             </div>
-
             <div class="timeBox">
                 <span id="minutes">0</span>
                 <small>Min</small>
             </div>
-
             <div class="timeBox">
                 <span id="seconds">0</span>
                 <small>Sek</small>
             </div>
-
         </div>
 
-        <p class="hint">
-            ✨ Ein kleines Abenteuer wartet auf dich...
-        </p>
+        <p class="hint">✨ Ein kleines Abenteuer wartet auf dich …</p>
 
     </div>
-
 </section>
 
 <!-- Memory -->
-
 <section id="memoryPage" class="page hidden">
-
     <div class="glass">
 
-        <h2>🎉 Happy Birthday Elke 🎉</h2>
-
-        <p class="subtitle">
-            Finde alle 6 Paare.
-        </p>
+        <p class="eyebrow">Kleine Aufgabe</p>
+        <h2>Finde alle Paare</h2>
+        <p class="subtitle">6 Paare warten darauf, entdeckt zu werden.</p>
 
         <div id="memoryBoard"></div>
 
     </div>
-
 </section>
 
 <!-- Gutschein -->
-
 <section id="voucherPage" class="page hidden">
-
     <div class="voucher">
 
-        <div class="pizza">
-            🍕
-        </div>
+        <div class="pizza">🍕</div>
 
+        <p class="eyebrow eyebrow-dark">Geschafft</p>
         <h2>Herzlichen Glückwunsch!</h2>
-
-        <p>
-            Du hast alle Aufgaben gemeistert.
-        </p>
+        <p>Du hast alle Aufgaben gemeistert.</p>
 
         <h3>Original-Gutschein</h3>
 
         <p>
-            Für dich wartet ein
-            <strong>Original-Gutschein</strong>
-            für die
-            <strong>Capizzi Napoletana</strong>.
+            Für dich wartet ein <strong>Original-Gutschein</strong>
+            für die <strong>Capizzi Napoletana</strong>.
         </p>
 
         <p>
-            Schreibe der
-            <strong>besten Schwester der Welt ❤️</strong>
+            Schreibe der <strong>besten Schwester der Welt ❤️</strong>
             einfach das Codewort
         </p>
 
-        <div class="codeWord">
-            CAPIZZI
-        </div>
+        <div class="codeWord">CAPIZZI</div>
 
-        <p>
-            und du erhältst deinen Original-Gutschein.
-        </p>
+        <p>und du erhältst deinen Original-Gutschein.</p>
 
-        <p class="footer">
-            🇮🇹 Buon appetito 🇮🇹
-        </p>
+        <p class="footer">🇮🇹 Buon appetito 🇮🇹</p>
 
     </div>
-
 </section>
 
 <!-- Admin -->
-
 <div id="adminModal">
-
     <div class="adminCard">
-
         <h3>🔒 Admin</h3>
-
-        <input
-            id="adminCode"
-            type="password"
-            placeholder="Code">
-
-        <button id="adminButton">
-            Öffnen
-        </button>
-
+        <input id="adminCode" type="password" inputmode="numeric" placeholder="Code" autocomplete="off">
+        <button id="adminButton">Öffnen</button>
     </div>
-
 </div>
 
 <div id="confetti"></div>

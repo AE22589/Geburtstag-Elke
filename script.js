@@ -1,20 +1,60 @@
 // ===============================
-// Einstellungen
+// Elemente
 // ===============================
 
 const birthday = new Date("2026-07-26T00:00:00");
 
 const countdownPage = document.getElementById("countdownPage");
-const memoryPage = document.getElementById("memoryPage");
-const voucherPage = document.getElementById("voucherPage");
+const memoryPage    = document.getElementById("memoryPage");
+const voucherPage   = document.getElementById("voucherPage");
 
-const adminModal = document.getElementById("adminModal");
+const adminModal  = document.getElementById("adminModal");
 const adminButton = document.getElementById("adminButton");
-const adminCode = document.getElementById("adminCode");
+const adminCode   = document.getElementById("adminCode");
 
-const board = document.getElementById("memoryBoard");
-
+const board    = document.getElementById("memoryBoard");
 const confetti = document.getElementById("confetti");
+const bgVideo  = document.getElementById("bgVideo");
+
+
+// ===============================
+// Hintergrundvideo
+// ===============================
+// Versucht das Video abzuspielen. Schlägt Autoplay fehl (z. B. iOS im
+// Energiesparmodus), bleibt automatisch das Posterbild sichtbar.
+// Zusätzlich wird beim ersten Tippen/Klicken erneut versucht zu starten.
+
+if (bgVideo) {
+
+    const tryPlayVideo = () => {
+
+        const playPromise = bgVideo.play();
+
+        if (playPromise !== undefined) {
+
+            playPromise.catch(() => {
+
+                const resumeOnInteraction = () => {
+
+                    bgVideo.play().catch(() => {});
+
+                    document.removeEventListener("touchstart", resumeOnInteraction);
+                    document.removeEventListener("click", resumeOnInteraction);
+
+                };
+
+                document.addEventListener("touchstart", resumeOnInteraction, { once: true, passive: true });
+                document.addEventListener("click", resumeOnInteraction, { once: true });
+
+            });
+
+        }
+
+    };
+
+    tryPlayVideo();
+
+}
 
 
 // ===============================
@@ -24,7 +64,6 @@ const confetti = document.getElementById("confetti");
 function updateCountdown() {
 
     const now = new Date();
-
     const diff = birthday - now;
 
     if (diff <= 0) {
@@ -35,18 +74,16 @@ function updateCountdown() {
         clearInterval(timer);
 
         return;
+
     }
 
-    const days = Math.floor(diff / 86400000);
-
-    const hours = Math.floor(diff % 86400000 / 3600000);
-
+    const days    = Math.floor(diff / 86400000);
+    const hours   = Math.floor(diff % 86400000 / 3600000);
     const minutes = Math.floor(diff % 3600000 / 60000);
-
     const seconds = Math.floor(diff % 60000 / 1000);
 
-    document.getElementById("days").textContent = days;
-    document.getElementById("hours").textContent = hours;
+    document.getElementById("days").textContent    = days;
+    document.getElementById("hours").textContent   = hours;
     document.getElementById("minutes").textContent = minutes;
     document.getElementById("seconds").textContent = seconds;
 
@@ -54,55 +91,35 @@ function updateCountdown() {
 
 updateCountdown();
 
-const timer = setInterval(updateCountdown,1000);
-
-
-// ===============================
-// Sternschnuppe
-// ===============================
-
-const shootingStar = document.getElementById("shootingStar");
-
-function shootStar(){
-
-    shootingStar.style.animation="none";
-
-    void shootingStar.offsetWidth;
-
-    shootingStar.style.animation="shoot 2s linear";
-
-}
-
-setInterval(shootStar,8000);
+const timer = setInterval(updateCountdown, 1000);
 
 
 // ===============================
 // Adminmodus
 // ===============================
 
-let taps=0;
+let taps = 0;
 
-document.body.addEventListener("click",()=>{
+document.body.addEventListener("click", () => {
 
     taps++;
 
-    if(taps>=5){
+    if (taps >= 5) {
 
-        taps=0;
+        taps = 0;
 
-        adminModal.style.display="flex";
-
+        adminModal.style.display = "flex";
         adminCode.focus();
 
     }
 
 });
 
-adminButton.addEventListener("click",()=>{
+adminButton.addEventListener("click", () => {
 
-    if(adminCode.value==="1337"){
+    if (adminCode.value === "1337") {
 
-        adminModal.style.display="none";
+        adminModal.style.display = "none";
 
         countdownPage.classList.add("hidden");
         memoryPage.classList.add("hidden");
@@ -110,22 +127,31 @@ adminButton.addEventListener("click",()=>{
 
         launchConfetti();
 
-    }else{
+    } else {
 
-        adminCode.value="";
+        adminCode.value = "";
         alert("Falscher Code.");
 
     }
 
 });
 
-adminModal.addEventListener("click",(e)=>{
+adminModal.addEventListener("click", (e) => {
 
-    if(e.target===adminModal){
+    if (e.target === adminModal) {
 
-        adminModal.style.display="none";
+        adminModal.style.display = "none";
+        adminCode.value = "";
 
-        adminCode.value="";
+    }
+
+});
+
+adminCode.addEventListener("keydown", (e) => {
+
+    if (e.key === "Enter") {
+
+        adminButton.click();
 
     }
 
@@ -136,48 +162,41 @@ adminModal.addEventListener("click",(e)=>{
 // Memory
 // ===============================
 
-const icons=[
-"🍕",
-"🍕",
-"🍷",
-"🍷",
-"❤️",
-"❤️",
-"🎂",
-"🎂",
-"🌸",
-"🌸",
-"🎁",
-"🎁"
+const icons = [
+    "🍕", "🍕",
+    "🍷", "🍷",
+    "❤️", "❤️",
+    "🎂", "🎂",
+    "🌸", "🌸",
+    "🎁", "🎁"
 ];
 
-icons.sort(()=>Math.random()-0.5);
+icons.sort(() => Math.random() - 0.5);
 
-let firstCard=null;
-let secondCard=null;
-let lock=false;
-let matches=0;
+let firstCard  = null;
+let secondCard = null;
+let lock       = false;
+let matches    = 0;
 
 createBoard();
 
-function createBoard(){
+function createBoard() {
 
-    board.innerHTML="";
+    board.innerHTML = "";
 
-    icons.forEach(icon=>{
+    icons.forEach(icon => {
 
-        const card=document.createElement("div");
+        const card = document.createElement("div");
 
-        card.className="memoryCard";
+        card.className = "memoryCard";
+        card.dataset.icon = icon;
 
-        card.dataset.icon=icon;
-
-        card.innerHTML=`
+        card.innerHTML = `
             <div class="front">?</div>
             <div class="back">${icon}</div>
         `;
 
-        card.addEventListener("click",flipCard);
+        card.addEventListener("click", flipCard);
 
         board.appendChild(card);
 
@@ -188,8 +207,8 @@ function createBoard(){
 function flipCard() {
 
     if (lock) return;
-
     if (this === firstCard) return;
+    if (this.classList.contains("found")) return;
 
     this.classList.add("open");
 
@@ -201,10 +220,12 @@ function flipCard() {
     }
 
     secondCard = this;
-
     lock = true;
 
     if (firstCard.dataset.icon === secondCard.dataset.icon) {
+
+        firstCard.classList.add("found");
+        secondCard.classList.add("found");
 
         firstCard.removeEventListener("click", flipCard);
         secondCard.removeEventListener("click", flipCard);
@@ -243,9 +264,9 @@ function flipCard() {
 
 function resetSelection() {
 
-    firstCard = null;
+    firstCard  = null;
     secondCard = null;
-    lock = false;
+    lock       = false;
 
 }
 
@@ -265,13 +286,9 @@ function launchConfetti() {
         piece.className = "confettiPiece";
 
         piece.style.left = Math.random() * 100 + "%";
-
         piece.style.animationDelay = Math.random() * 2 + "s";
-
         piece.style.animationDuration = (3 + Math.random() * 3) + "s";
-
-        piece.style.transform =
-            "rotate(" + (Math.random() * 360) + "deg)";
+        piece.style.transform = "rotate(" + (Math.random() * 360) + "deg)";
 
         confetti.appendChild(piece);
 
@@ -287,31 +304,7 @@ function launchConfetti() {
 
 
 // ===============================
-// Tastatur Enter
-// ===============================
-
-adminCode.addEventListener("keydown", (e) => {
-
-    if (e.key === "Enter") {
-
-        adminButton.click();
-
-    }
-
-});
-
-
-// ===============================
-// Safari / iPhone
-// ===============================
-
-document.addEventListener("touchstart", function () {}, {
-    passive: true
-});
-
-
-// ===============================
-// Kleine Animation beim Laden
+// Kleine Fade-in Animation beim Laden
 // ===============================
 
 window.addEventListener("load", () => {
