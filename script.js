@@ -127,7 +127,7 @@ const timer = setInterval(updateCountdown, 1000);
 
 let taps = 0;
 
-document.body.addEventListener("click", () => {
+countdownPage.addEventListener("click", () => {
 
     taps++;
 
