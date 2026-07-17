@@ -712,3 +712,154 @@ h2{
     }
 
 }
+
+/* ===========================
+   Memory Karten
+=========================== */
+
+#memoryBoard{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+    margin-top:30px;
+}
+
+.memoryCard{
+    position:relative;
+    aspect-ratio:1;
+    cursor:pointer;
+    transform-style:preserve-3d;
+    transition:transform .45s;
+}
+
+.memoryCard.open{
+    transform:rotateY(180deg);
+}
+
+.memoryCard .front,
+.memoryCard .back{
+    position:absolute;
+    inset:0;
+    border-radius:18px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    backface-visibility:hidden;
+
+    font-size:2.3rem;
+
+    user-select:none;
+}
+
+.memoryCard .front{
+
+    background:rgba(255,255,255,.12);
+    border:2px solid rgba(255,255,255,.25);
+    color:white;
+
+    backdrop-filter:blur(10px);
+
+}
+
+.memoryCard .back{
+
+    transform:rotateY(180deg);
+
+    background:white;
+
+    color:#222;
+
+}
+
+
+/* ===========================
+   Konfetti
+=========================== */
+
+#confetti{
+
+    position:fixed;
+    inset:0;
+
+    pointer-events:none;
+    overflow:hidden;
+
+    z-index:999;
+
+}
+
+.confettiPiece{
+
+    position:absolute;
+
+    width:10px;
+    height:16px;
+
+    top:-30px;
+
+    border-radius:2px;
+
+    animation:confettiFall linear forwards;
+
+}
+
+.confettiPiece:nth-child(6n+1){background:#ff4d6d;}
+.confettiPiece:nth-child(6n+2){background:#ffd166;}
+.confettiPiece:nth-child(6n+3){background:#06d6a0;}
+.confettiPiece:nth-child(6n+4){background:#4cc9f0;}
+.confettiPiece:nth-child(6n+5){background:#f72585;}
+.confettiPiece:nth-child(6n){background:#ffffff;}
+
+@keyframes confettiFall{
+
+    0%{
+
+        transform:translateY(-30px) rotate(0deg);
+        opacity:1;
+
+    }
+
+    100%{
+
+        transform:translateY(110vh) rotate(720deg);
+        opacity:0;
+
+    }
+
+}
+
+
+/* ===========================
+   Mobile
+=========================== */
+
+@media (max-width:600px){
+
+    #memoryBoard{
+
+        gap:12px;
+
+    }
+
+    .memoryCard .front,
+    .memoryCard .back{
+
+        font-size:1.9rem;
+
+    }
+
+    .voucher{
+
+        padding:28px 20px;
+
+    }
+
+    .codeWord{
+
+        font-size:2rem;
+
+    }
+
+}
