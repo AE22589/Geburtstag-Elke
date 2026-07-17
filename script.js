@@ -1,35 +1,25 @@
 // ===============================
-// Geburtstag
+// Einstellungen
 // ===============================
 
 const birthday = new Date("2026-07-26T00:00:00");
 
-// ===============================
-// Elemente
-// ===============================
-
 const countdownPage = document.getElementById("countdownPage");
-const giftPage = document.getElementById("giftPage");
-
-const days = document.getElementById("days");
-const hours = document.getElementById("hours");
-const minutes = document.getElementById("minutes");
-const seconds = document.getElementById("seconds");
+const memoryPage = document.getElementById("memoryPage");
+const voucherPage = document.getElementById("voucherPage");
 
 const adminModal = document.getElementById("adminModal");
-const adminCode = document.getElementById("adminCode");
 const adminButton = document.getElementById("adminButton");
+const adminCode = document.getElementById("adminCode");
+
+const board = document.getElementById("memoryBoard");
+
+const confetti = document.getElementById("confetti");
+
 
 // ===============================
 // Countdown
 // ===============================
-
-function openGiftPage() {
-
-    countdownPage.style.display = "none";
-    giftPage.style.display = "flex";
-
-}
 
 function updateCountdown() {
 
@@ -39,164 +29,171 @@ function updateCountdown() {
 
     if (diff <= 0) {
 
-        openGiftPage();
-        return;
+        countdownPage.classList.add("hidden");
+        memoryPage.classList.remove("hidden");
 
+        clearInterval(timer);
+
+        return;
     }
 
-    const d = Math.floor(diff / 1000 / 60 / 60 / 24);
-    const h = Math.floor(diff / 1000 / 60 / 60) % 24;
-    const m = Math.floor(diff / 1000 / 60) % 60;
-    const s = Math.floor(diff / 1000) % 60;
+    const days = Math.floor(diff / 86400000);
 
-    days.textContent = d;
-    hours.textContent = h;
-    minutes.textContent = m;
-    seconds.textContent = s;
+    const hours = Math.floor(diff % 86400000 / 3600000);
+
+    const minutes = Math.floor(diff % 3600000 / 60000);
+
+    const seconds = Math.floor(diff % 60000 / 1000);
+
+    document.getElementById("days").textContent = days;
+    document.getElementById("hours").textContent = hours;
+    document.getElementById("minutes").textContent = minutes;
+    document.getElementById("seconds").textContent = seconds;
 
 }
 
 updateCountdown();
 
-setInterval(updateCountdown, 1000);
+const timer = setInterval(updateCountdown,1000);
+
+
+// ===============================
+// Sternschnuppe
+// ===============================
+
+const shootingStar = document.getElementById("shootingStar");
+
+function shootStar(){
+
+    shootingStar.style.animation="none";
+
+    void shootingStar.offsetWidth;
+
+    shootingStar.style.animation="shoot 2s linear";
+
+}
+
+setInterval(shootStar,8000);
+
 
 // ===============================
 // Adminmodus
 // ===============================
 
-let clickCounter = 0;
+let taps=0;
 
-document.body.addEventListener("click", (event) => {
+document.body.addEventListener("click",()=>{
 
-    // Nicht mitzählen, wenn das Adminfenster offen ist
-    if (adminModal.style.display === "flex") return;
+    taps++;
 
-    // Nicht mitzählen wenn Countdown bereits vorbei
-    if (countdownPage.style.display === "none") return;
+    if(taps>=5){
 
-    clickCounter++;
+        taps=0;
 
-    if (clickCounter >= 5) {
+        adminModal.style.display="flex";
 
-        clickCounter = 0;
-
-        adminModal.style.display = "flex";
-
-        adminCode.value = "";
         adminCode.focus();
 
     }
 
 });
 
-// ===============================
-// Login
-// ===============================
+adminButton.addEventListener("click",()=>{
 
-function checkAdminCode() {
+    if(adminCode.value==="1337"){
 
-    if (adminCode.value === "1337") {
+        adminModal.style.display="none";
 
-        adminModal.style.display = "none";
+        countdownPage.classList.add("hidden");
+        memoryPage.classList.add("hidden");
+        voucherPage.classList.remove("hidden");
 
-        openGiftPage();
+        launchConfetti();
 
-    } else {
+    }else{
 
-        adminCode.value = "";
-
-        adminCode.placeholder = "Falscher Code";
-
-    }
-
-}
-
-adminButton.addEventListener("click", checkAdminCode);
-
-adminCode.addEventListener("keydown", function (event) {
-
-    if (event.key === "Enter") {
-
-        checkAdminCode();
+        adminCode.value="";
+        alert("Falscher Code.");
 
     }
 
 });
 
-// ===============================
-// Fenster schließen
-// ===============================
+adminModal.addEventListener("click",(e)=>{
 
-adminModal.addEventListener("click", function (event) {
+    if(e.target===adminModal){
 
-    if (event.target === adminModal) {
+        adminModal.style.display="none";
 
-        adminModal.style.display = "none";
+        adminCode.value="";
 
     }
 
 });
-
-// ===============================
-// Platzhalter für später
-// ===============================
-
 
 
 // ===============================
 // Memory
 // ===============================
 
-const memoryBoard = document.getElementById("memoryBoard");
-
-const cards = [
-    "🎂","🎂",
-    "🎁","🎁",
-    "❤️","❤️",
-    "🌸","🌸",
-    "🥂","🥂",
-    "🎈","🎈"
+const icons=[
+"🍕",
+"🍕",
+"🍷",
+"🍷",
+"❤️",
+"❤️",
+"🎂",
+"🎂",
+"🌸",
+"🌸",
+"🎁",
+"🎁"
 ];
 
-cards.sort(() => Math.random() - 0.5);
+icons.sort(()=>Math.random()-0.5);
 
-let firstCard = null;
-let secondCard = null;
-let lock = false;
-let pairs = 0;
+let firstCard=null;
+let secondCard=null;
+let lock=false;
+let matches=0;
+
+createBoard();
 
 function createBoard(){
 
-    memoryBoard.innerHTML = "";
+    board.innerHTML="";
 
-    cards.forEach(emoji => {
+    icons.forEach(icon=>{
 
-        const card = document.createElement("div");
+        const card=document.createElement("div");
 
-        card.className = "memoryCard";
-        card.dataset.emoji = emoji;
-        card.dataset.open = "false";
+        card.className="memoryCard";
 
-        card.textContent = "❓";
+        card.dataset.icon=icon;
 
-        card.onclick = flipCard;
+        card.innerHTML=`
+            <div class="front">?</div>
+            <div class="back">${icon}</div>
+        `;
 
-        memoryBoard.appendChild(card);
+        card.addEventListener("click",flipCard);
+
+        board.appendChild(card);
 
     });
 
 }
 
-function flipCard(){
+function flipCard() {
 
-    if(lock) return;
+    if (lock) return;
 
-    if(this.dataset.open === "true") return;
+    if (this === firstCard) return;
 
-    this.dataset.open = "true";
-    this.textContent = this.dataset.emoji;
+    this.classList.add("open");
 
-    if(firstCard === null){
+    if (!firstCard) {
 
         firstCard = this;
         return;
@@ -207,32 +204,36 @@ function flipCard(){
 
     lock = true;
 
-    if(firstCard.dataset.emoji === secondCard.dataset.emoji){
+    if (firstCard.dataset.icon === secondCard.dataset.icon) {
 
-        firstCard.style.background = "#67d98a";
-        secondCard.style.background = "#67d98a";
+        firstCard.removeEventListener("click", flipCard);
+        secondCard.removeEventListener("click", flipCard);
 
-        pairs++;
+        matches++;
 
-        reset();
+        resetSelection();
 
-        if(pairs === 6){
+        if (matches === 6) {
 
-            document.getElementById("memoryWon").style.display = "block";
+            setTimeout(() => {
+
+                launchConfetti();
+
+                memoryPage.classList.add("hidden");
+                voucherPage.classList.remove("hidden");
+
+            }, 900);
 
         }
 
-    }else{
+    } else {
 
         setTimeout(() => {
 
-            firstCard.dataset.open = "false";
-            secondCard.dataset.open = "false";
+            firstCard.classList.remove("open");
+            secondCard.classList.remove("open");
 
-            firstCard.textContent = "❓";
-            secondCard.textContent = "❓";
-
-            reset();
+            resetSelection();
 
         }, 900);
 
@@ -240,7 +241,7 @@ function flipCard(){
 
 }
 
-function reset(){
+function resetSelection() {
 
     firstCard = null;
     secondCard = null;
@@ -248,4 +249,80 @@ function reset(){
 
 }
 
-createBoard();
+
+// ===============================
+// Konfetti
+// ===============================
+
+function launchConfetti() {
+
+    confetti.innerHTML = "";
+
+    for (let i = 0; i < 120; i++) {
+
+        const piece = document.createElement("div");
+
+        piece.className = "confettiPiece";
+
+        piece.style.left = Math.random() * 100 + "%";
+
+        piece.style.animationDelay = Math.random() * 2 + "s";
+
+        piece.style.animationDuration = (3 + Math.random() * 3) + "s";
+
+        piece.style.transform =
+            "rotate(" + (Math.random() * 360) + "deg)";
+
+        confetti.appendChild(piece);
+
+    }
+
+    setTimeout(() => {
+
+        confetti.innerHTML = "";
+
+    }, 7000);
+
+}
+
+
+// ===============================
+// Tastatur Enter
+// ===============================
+
+adminCode.addEventListener("keydown", (e) => {
+
+    if (e.key === "Enter") {
+
+        adminButton.click();
+
+    }
+
+});
+
+
+// ===============================
+// Safari / iPhone
+// ===============================
+
+document.addEventListener("touchstart", function () {}, {
+    passive: true
+});
+
+
+// ===============================
+// Kleine Animation beim Laden
+// ===============================
+
+window.addEventListener("load", () => {
+
+    document.body.style.opacity = "0";
+
+    requestAnimationFrame(() => {
+
+        document.body.style.transition = "opacity .8s ease";
+        document.body.style.opacity = "1";
+
+    });
+
+});

@@ -6,12 +6,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Happy Birthday ❤️</title>
+    <title>Happy Birthday Elke ❤️</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
 
@@ -19,49 +19,43 @@
 
 <body>
 
-<video
-    id="bgVideo"
-    autoplay
-    muted
-    loop
-    playsinline
-    webkit-playsinline
-    preload="auto">
+<div id="sky">
+    <div id="stars1"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>
+    <div id="shootingStar"></div>
+</div>
 
-<div id="background"></div>
+<!-- Countdown -->
 
-<div id="stars"></div>
+<section id="countdownPage" class="page">
 
-<div id="countdownPage">
-
-    <div class="card">
+    <div class="glass">
 
         <h1>🎂 Happy Birthday</h1>
 
         <p class="subtitle">
-
-            Noch bis zu deiner Überraschung...
-
+            Noch ein kleines bisschen Geduld...
         </p>
 
         <div id="countdown">
 
-            <div class="box">
+            <div class="timeBox">
                 <span id="days">0</span>
                 <small>Tage</small>
             </div>
 
-            <div class="box">
+            <div class="timeBox">
                 <span id="hours">0</span>
                 <small>Std</small>
             </div>
 
-            <div class="box">
+            <div class="timeBox">
                 <span id="minutes">0</span>
                 <small>Min</small>
             </div>
 
-            <div class="box">
+            <div class="timeBox">
                 <span id="seconds">0</span>
                 <small>Sek</small>
             </div>
@@ -69,31 +63,40 @@
         </div>
 
         <p class="hint">
-
             ✨ Ein kleines Abenteuer wartet auf dich...
-
         </p>
 
     </div>
 
-</div>
+</section>
 
-<div id="giftPage">
-    <div class="card">
+<!-- Memory -->
 
-        <h2>🎉 Happy Birthday Elke! 🎉</h2>
+<section id="memoryPage" class="page hidden">
 
-        <p class="memoryText">
-            Finde alle 6 Paare, um dein Geschenk zu öffnen.
+    <div class="glass">
+
+        <h2>🎉 Happy Birthday Elke 🎉</h2>
+
+        <p class="subtitle">
+            Finde alle 6 Paare.
         </p>
 
         <div id="memoryBoard"></div>
 
-<div id="memoryWon" style="display:none;">
+    </div>
 
-    <div id="voucher">
+</section>
 
-        <div class="pizza">🍕</div>
+<!-- Gutschein -->
+
+<section id="voucherPage" class="page hidden">
+
+    <div class="voucher">
+
+        <div class="pizza">
+            🍕
+        </div>
 
         <h2>Herzlichen Glückwunsch!</h2>
 
@@ -101,12 +104,13 @@
             Du hast alle Aufgaben gemeistert.
         </p>
 
-        <h3>Deine Überraschung</h3>
+        <h3>Original-Gutschein</h3>
 
         <p>
-            Ein <strong>Original-Gutschein</strong> für die
-            <strong>Capizzi Napoletana</strong>
-            wartet bereits auf dich.
+            Für dich wartet ein
+            <strong>Original-Gutschein</strong>
+            für die
+            <strong>Capizzi Napoletana</strong>.
         </p>
 
         <p>
@@ -115,7 +119,7 @@
             einfach das Codewort
         </p>
 
-        <div class="codeword">
+        <div class="codeWord">
             CAPIZZI
         </div>
 
@@ -123,44 +127,38 @@
             und du erhältst deinen Original-Gutschein.
         </p>
 
-        <div class="italy">
-            🇮🇹 Buon appetito! 🇮🇹
-        </div>
+        <p class="footer">
+            🇮🇹 Buon appetito 🇮🇹
+        </p>
 
     </div>
 
-</div>
+</section>
 
-    </div>
-</div>
+<!-- Admin -->
 
 <div id="adminModal">
 
     <div class="adminCard">
 
-        <h3>🔒 Adminbereich</h3>
+        <h3>🔒 Admin</h3>
 
         <input
             id="adminCode"
             type="password"
-            placeholder="Code eingeben">
+            placeholder="Code">
 
         <button id="adminButton">
-
             Öffnen
-
         </button>
 
     </div>
 
 </div>
 
-<div id="fireworkOverlay">
-    <h1>🎉 Happy Birthday! 🎉</h1>
-</div>
+<div id="confetti"></div>
 
 <script src="script.js"></script>
 
 </body>
-
 </html>
