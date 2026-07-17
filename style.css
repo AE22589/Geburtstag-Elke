@@ -73,6 +73,15 @@ body{
 
 }
 
+/* Falls Video/Poster nicht geladen werden können, komplett
+   ausblenden - dann bleibt sauber der Verlaufshintergrund von
+   body sichtbar, statt eines kaputten Video-Icons. */
+.bg-video.bg-video--error{
+
+    display:none;
+
+}
+
 .bg-overlay{
 
     position:fixed;

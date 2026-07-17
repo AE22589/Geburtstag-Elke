@@ -26,6 +26,16 @@ const bgVideo  = document.getElementById("bgVideo");
 
 if (bgVideo) {
 
+    // Falls Video oder Poster nicht geladen werden können (z. B. weil
+    // background.mp4 / poster.jpg noch fehlen), Video komplett
+    // ausblenden - dann bleibt der Verlaufshintergrund sichtbar statt
+    // eines kaputten Video-Symbols.
+    bgVideo.addEventListener("error", () => {
+
+        bgVideo.classList.add("bg-video--error");
+
+    });
+
     const tryPlayVideo = () => {
 
         const playPromise = bgVideo.play();
@@ -139,10 +149,7 @@ adminButton.addEventListener("click", () => {
         adminModal.style.display = "none";
 
         countdownPage.classList.add("hidden");
-        memoryPage.classList.add("hidden");
-        voucherPage.classList.remove("hidden");
-
-        launchConfetti();
+        memoryPage.classList.remove("hidden");
 
     } else {
 
